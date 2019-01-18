@@ -7,6 +7,7 @@ import StaticBox from './StaticBox.js';
 import MutableBox from './MutableBox.js';
 import PasswordBox from './PasswordBox.js';
 import { ToastContainer, ToastStore } from 'react-toasts';
+import { _API_CALL } from './../../../Utils/api';
 
 
 class Profile extends React.Component {
@@ -31,21 +32,10 @@ class Profile extends React.Component {
         var token = localStorage.getItem('token')
         var userID = localStorage.getItem('user_id')
 
-        var apiPath = '/api/account/' + userID + '/details'
-        axios.get(apiPath, {
-            headers: {
-                'x-access-token': token,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(function (response) {
-                if (!response.data.success) {
-                    // TODO: throw appropriate error and redirect
-                    console.log("Error:" + response.data);
-                    return;
-                }
+        var apiPath = '/api/account/' + userID + '/details';
+        _API_CALL(apiPath, "GET", {}, token)
+            .then(response => {
                 var data = response.data;
-                // TODO: Update dob with calendar
                 self.setState({ isLoading: false });
                 self.setState({
                     username: data.user.username,
@@ -54,55 +44,37 @@ class Profile extends React.Component {
                     basicInfo: data.user.basicInfo
                 });
             })
-            .catch(function (error) {
-                // TODO: Try again after sometime? 
-                console.log('error is ', error);
-                if (error.response) {
-                    if (error.response.status) {
-                        alert("Session timed out.");
-                        window.location.href = '/';
-                    }
-                }
-            });
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     updateUsername(field, newVal) {
         var token = localStorage.getItem('token')
         var userID = localStorage.getItem('user_id')
-        var apiPath = '/api/account/'+userID+'/username'
-        var body = {username: newVal};
+        var apiPath = '/api/account/' + userID + '/username'
+        var body = { username: newVal };
         var previous_username = this.state.username;
-        if(newVal==previous_username){
+        if (newVal == previous_username) {
             ToastStore.warning("Current username. Please try another one");
             return;
         }
-        this.setState({username: newVal});
-        axios.post(apiPath, body, {
-            headers: {
-                'x-access-token': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(function(response){
-            console.log(response);
-            if(!response.data.success){
-                // TODO: throw appropriate error and redirect
-                console.log("Error: " + response.data.message);
-                return;
-            }
-            else if(response.status == 200) {
-                console.log(response.data);
-                ToastStore.success('Successfully updated!');
-            }
-        }).catch(function (error) {
-            // TODO: Reload the page after ToastStore
-            console.log(error);
-            if(error.response.status == 404){
-                ToastStore.warning("Username already exists. Please try another one");
-            }
-            else if(error.response.status == 500){
-                ToastStore.error("Server Error. Please try again after a while");
-            }
-        });
+        this.setState({ username: newVal });
+
+        _API_CALL(apiPath, "POST", body, token)
+            .then(response => {
+                if (response.status == 200) {
+                    ToastStore.success('Successfully updated!');
+                }
+            })
+            .catch(error => {
+                if (error.response.status == 404) {
+                    ToastStore.warning("Username already exists. Please try another one");
+                }
+                else if (error.message) {
+                    ToastStore.error(error.message);
+                }
+            });
     }
 
     updateValue(field, newVal) {
@@ -113,7 +85,7 @@ class Profile extends React.Component {
 
         var token = localStorage.getItem('token')
         var userID = localStorage.getItem('user_id')
-        var apiPath = '/api/account/' + userID + '/basicInfo'
+        var apiPath = '/api/account/' + userID + '/basicInfo';
         var body = new Object();
         body["phone"] = basicInfoCopy.phone;
         body["email"] = basicInfoCopy.email;
@@ -179,7 +151,7 @@ class Profile extends React.Component {
         );
 
         if (this.state.isLoading)
-            return <ReactLoading/>;
+            return <ReactLoading />;
         else
             return (
                 <div>
