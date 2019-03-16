@@ -145,6 +145,9 @@ class NavbarClass extends Component {
           <NavItem>
             <NavLink tag={Link} to="/assignments" activeclassname="active">Assignments</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/Statistics" activeclassname="active">Statistics</NavLink>
+          </NavItem>
         </Nav>
         <hr/>
         <Nav className="ml-auto" navbar>
@@ -169,6 +172,7 @@ class NavbarClass extends Component {
                 Logout
             </DropdownItem>
             </DropdownMenu>
+
           </UncontrolledDropdown>
         </Nav>
       </Collapse>

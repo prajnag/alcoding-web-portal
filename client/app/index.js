@@ -28,6 +28,7 @@ import downloadFile from './components/Pages/Assignments/downloadFile';
 import updateHandle from './components/Pages/Profile/UpdateHandle';
 import PublicProfile from './components/Pages/Profile/PublicProfile';
 import contribute from './components/Pages/Contribute';
+import Statistics from './components/Pages/Statistics';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -45,6 +46,7 @@ render((
             <Route exact path="/" component={Home} />
 
             <Route exact path="/users/:username" component = {PublicProfile} />
+
 
             <PrivateRoute exact path="/assignments" component={Assignments} />
 
@@ -71,6 +73,8 @@ render((
             <Route exact path="/forgotpassword" component={ForgotPassword} />
 
             <Route exact path="/reset/:token/:userID" component={ChangePassword} />
+
+            <Route exact path="/Statistics" component={Statistics} />
 
             <Route component={NotFound} />
           </Switch>
