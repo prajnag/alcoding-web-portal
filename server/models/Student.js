@@ -68,3 +68,4 @@ UserSchema.methods.checkPassword = function (plainTextPassword) {
 }
 
 module.exports = mongoose.model('Student', StudentSchema);
+// 
