@@ -43,7 +43,7 @@ export default class Statistics extends Component {
                     }
                 ]
             },
-            lineChartData:{
+            linechartData:{
                 labels:['Sem 1','Sem 2', 'Sem 3','Sem 4','Sem 5','Sem 6','Sem 7'],
                 datasets:[
                     {
@@ -60,7 +60,7 @@ export default class Statistics extends Component {
         return (
             <div className="chart">
          
-            {/* <Line
+             <Line
             data={this.state.linechartData }
 
             options={{
@@ -80,7 +80,7 @@ export default class Statistics extends Component {
             }}
             
         
-        />   */}
+        />   
 
             <Bar 
                 data={this.state.barchartData }

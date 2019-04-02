@@ -12,7 +12,6 @@ var keyName = "inputFile";
 
 module.exports = (app) => {
     app.post('/api/admin/signup', function (req, res) {
-
         var usn = req.body.usn;
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
