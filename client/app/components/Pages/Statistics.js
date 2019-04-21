@@ -61,6 +61,7 @@ export default class Statistics extends Component {
     render() {
         return (
             <div className="chart">
+<<<<<<< HEAD
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret color="info">
                   SELECT CLASS
@@ -77,6 +78,11 @@ export default class Statistics extends Component {
             <Button color="info" >View Class Details</Button><br/><br/>
             <Button color="success">View Performance of a student</Button><br/><br/>
             <Button color="danger">Overall Performance</Button>
+=======
+         
+             <Line
+            data={this.state.linechartData }
+>>>>>>> eed81057c32b14beb8026b8445956dcb084e7a52
 
              <Line
             data={this.state.linechartData }
@@ -94,7 +100,11 @@ export default class Statistics extends Component {
             }}
             
         
+<<<<<<< HEAD
         />  
+=======
+        />   
+>>>>>>> eed81057c32b14beb8026b8445956dcb084e7a52
 
             <Bar 
                 data={this.state.barchartData }
