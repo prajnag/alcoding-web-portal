@@ -4,9 +4,11 @@ import axios from "axios";
 import { Link, Redirect } from 'react-router-dom';
 import Avatar from 'react-avatar';
 import ReactLoading from '../common/Loading';
-import { Jumbotron, Row, Col } from 'reactstrap';
+import { Jumbotron, Row, Col, Button,Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 export default class Statistics extends Component {
+
+
     componentDidMount(){  
         window.scrollTo(0,0);
     }
@@ -43,44 +45,56 @@ export default class Statistics extends Component {
                     }
                 ]
             },
-            lineChartData:{
+            linechartData:{
                 labels:['Sem 1','Sem 2', 'Sem 3','Sem 4','Sem 5','Sem 6','Sem 7'],
                 datasets:[
                     {
                     
-                        data:[6.6,8.9,7.5,8.2,4.5,9.4,7.0],
+                        data:[8.9,9.2,7.8,10,9.3,8.0,9.4],
                         borderColor:'#FFA07A',
                         fill :false
                     }]   
             }
         }
     }
-    
+
     render() {
         return (
             <div className="chart">
-         
-            {/* <Line
+            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle caret color="info">
+                  SELECT CLASS
+                  </DropdownToggle>
+            <DropdownMenu right>
+             <DropdownItem header>Header</DropdownItem>
+            <DropdownItem disabled>Action</DropdownItem>
+            <DropdownItem>Another Action</DropdownItem>
+            <DropdownItem divider/>
+            <DropdownItem>Another Action</DropdownItem>
+           
+            </DropdownMenu>
+            </Dropdown><br/><br/>
+            <Button color="info" >View Class Details</Button><br/><br/>
+            <Button color="success">View Performance of a student</Button><br/><br/>
+            <Button color="danger">Overall Performance</Button>
+
+             <Line
             data={this.state.linechartData }
-
+            height={50}
             options={{
-               
-                title:{display:true, 
-                       text: 'Performance over the Sems'},
-                       scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                            }
-                        }],
-                    
-                    },
-
-                maintainAspectRatio:true
+                elements: {
+                    line: {
+                        tension: 0 
+                    }
+                },
+                legend:{display:false},
+            title:{
+                display:true, 
+                text: 'Performance of PES1201701222'}
             }}
             
         
-        />   */}
+        />  
 
             <Bar 
                 data={this.state.barchartData }
@@ -107,10 +121,12 @@ export default class Statistics extends Component {
             <Pie
                 height={100}
                 data={this.state.piechartData }
-                options={{maintainAspectRatio:true}}
+                options={{maintainAspectRatio:true,
+                    title:{display:true, 
+                    text: 'Performance in ESA'},}}
             
             />  
-            </div>
+           </div>
         )
     }
 }
